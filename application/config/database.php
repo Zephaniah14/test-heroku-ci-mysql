@@ -84,15 +84,15 @@ $db['default'] = array(
 
 	// The following values will probably need to be changed.
 
-	// 'hostname' => 'us-cdbr-east-02.cleardb.com',
-	// 'username' => 'b5803dffa87163',
-	// 'password' => 'dcaa8da6',
-	// 'database' => 'heroku_f3b76ae82afbe83',
+	'hostname' => 'us-cdbr-east-02.cleardb.com',
+	'username' => 'b5803dffa87163',
+	'password' => 'dcaa8da6',
+	'database' => 'heroku_f3b76ae82afbe83',
 
-	'hostname' => 'localhost',
-	'username' => "root",
-	'password' => "",
-	'database' => "accufy",
+	// 'hostname' => 'localhost',
+	// 'username' => "root",
+	// 'password' => "",
+	// 'database' => "accufy",
 
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
