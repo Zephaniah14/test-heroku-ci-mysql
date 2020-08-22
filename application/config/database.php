@@ -35,23 +35,24 @@
 */
 
 //Heroku cleardb_mysql url
-//mysql://b0512c9695a76f:ab578de8@us-cdbr-east-02.cleardb.com/heroku_92c55fe1fb98a23?reconnect=true
+// mysql://b5803dffa87163:dcaa8da6@us-cdbr-east-02.cleardb.com/heroku_f3b76ae82afbe83?reconnect=true
 
 // The following values will probably need to be changed.
 /*
  * Altered configurations to run on heroku
 */
-// $db['default']['username'] = 'b0512c9695a76f';
-// $db['default']['password'] = 'ab578de8';
-// $db['default']['database'] = 'heroku_92c55fe1fb98a23';
-// $db['default']['hostname'] = 'us-cdbr-east-02.cleardb.com';
+
+  $db['default']['username'] =  'b5803dffa87163';
+  $db['default']['password'] = 'dcaa8da6';
+  $db['default']['database'] = 'heroku_f3b76ae82afbe83';
+  $db['default']['hostname'] = 'us-cdbr-east-02.cleardb.com';
 /*
  * Orignal configurations to run on localhost
 */
-$db['default']['username'] = "root";
-$db['default']['password'] = "";
-$db['default']['database'] = "accufy";
-$db['default']['hostname'] = "localhost";
+// $db['default']['username'] = "root";
+// $db['default']['password'] = "";
+// $db['default']['database'] = "accufy";
+// $db['default']['hostname'] = "localhost";
 
 // The following values can probably stay the same.
 $db['default']['dbdriver'] = "mysqli"; //Updated to latest driver.
