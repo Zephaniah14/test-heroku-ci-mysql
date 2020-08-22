@@ -433,6 +433,7 @@ abstract class CI_DB_driver {
 
 				if ($this->db_debug)
 				{
+					//redirect(base_url('install/intro.php'));
 					$this->display_error('db_unable_to_connect');
 				}
 

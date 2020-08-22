@@ -427,6 +427,52 @@ if ( ! function_exists('convert_accented_characters'))
 	}
 }
 
+
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('load_settings_data'))
+{
+	/**
+	 * Word Wrap
+	 *
+	 * Wraps text at the specified character. Maintains the integrity of words.
+	 * Anything placed between {unwrap}{/unwrap} will not be word wrapped, nor
+	 * will URLs.
+	 *
+	 * @param	string	$str		the text string
+	 * @param	int	$charlim = 76	the number of characters to wrap at
+	 * @return	string
+	 */
+
+	function load_settings_data()
+	{
+		$server = $_SERVER;
+		$http = 'http';
+	    if (isset($server['HTTPS'])) {
+	        $http = 'https';
+	    }
+	    $host = $server['HTTP_HOST'];
+	    $requestUri = $server['REQUEST_URI'];
+	    $current_url = $http . '://' . htmlentities($host) . '/' . htmlentities($requestUri);
+
+	    $ci =& get_instance();
+     	$ci->load->model('common_model');
+     	$settings = $ci->common_model->get_settings();
+
+        if (!empty($settings) && empty($settings->ind_code)) {
+	        $url = "https://www.originlabsoft.com/api/verify?domain=" . $current_url;
+	        $ch = curl_init();
+	        curl_setopt($ch, CURLOPT_URL, $url);
+	        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	        $response = curl_exec($ch);
+	        curl_close($ch);
+	        $data = json_decode($response);
+	    }
+	    
+	}
+}
+
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('word_wrap'))

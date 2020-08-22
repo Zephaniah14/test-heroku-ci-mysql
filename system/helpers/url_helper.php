@@ -265,6 +265,23 @@ if ( ! function_exists('mailto'))
 
 // ------------------------------------------------------------------------
 
+
+if (!function_exists('get_ind_lcn')) {
+    function get_ind_lcn()
+    {
+        $ci =& get_instance();
+        $ci->load->model('common_model');
+        $settings = $ci->common_model->get_settings();
+
+        if (!empty($settings)) {
+            return $settings->purchase_code;
+        }
+
+    }
+}
+
+// ------------------------------------------------------------------------
+
 if ( ! function_exists('safe_mailto'))
 {
 	/**

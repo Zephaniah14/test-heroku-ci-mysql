@@ -1,111 +1,91 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 | -------------------------------------------------------------------
 | DATABASE CONNECTIVITY SETTINGS
 | -------------------------------------------------------------------
 | This file will contain the settings needed to access your database.
 |
-| For complete instructions please consult the 'Database Connection'
+| For complete instructions please consult the "Database Connection"
 | page of the User Guide.
 |
 | -------------------------------------------------------------------
 | EXPLANATION OF VARIABLES
 | -------------------------------------------------------------------
 |
-|	['dsn']      The full DSN string describe a connection to the database.
 |	['hostname'] The hostname of your database server.
 |	['username'] The username used to connect to the database
 |	['password'] The password used to connect to the database
 |	['database'] The name of the database you want to connect to
-|	['dbdriver'] The database driver. e.g.: mysqli.
-|			Currently supported:
-|				 cubrid, ibase, mssql, mysql, mysqli, oci8,
-|				 odbc, pdo, postgre, sqlite, sqlite3, sqlsrv
+|	['dbdriver'] The database type. ie: mysql.  Currently supported:
+				 mysql, mysqli, postgre, odbc, mssql, sqlite, oci8
 |	['dbprefix'] You can add an optional prefix, which will be added
-|				 to the table name when using the  Query Builder class
+|				 to the table name when using the  Active Record class
 |	['pconnect'] TRUE/FALSE - Whether to use a persistent connection
 |	['db_debug'] TRUE/FALSE - Whether database errors should be displayed.
 |	['cache_on'] TRUE/FALSE - Enables/disables query caching
 |	['cachedir'] The path to the folder where cache files should be stored
 |	['char_set'] The character set used in communicating with the database
 |	['dbcollat'] The character collation used in communicating with the database
-|				 NOTE: For MySQL and MySQLi databases, this setting is only used
-| 				 as a backup if your server is running PHP < 5.2.3 or MySQL < 5.0.7
-|				 (and in table creation queries made with DB Forge).
-| 				 There is an incompatibility in PHP with mysql_real_escape_string() which
-| 				 can make your site vulnerable to SQL injection if you are using a
-| 				 multi-byte character set and are running versions lower than these.
-| 				 Sites using Latin-1 or UTF-8 database character set and collation are unaffected.
-|	['swap_pre'] A default table prefix that should be swapped with the dbprefix
-|	['encrypt']  Whether or not to use an encrypted connection.
-|
-|			'mysql' (deprecated), 'sqlsrv' and 'pdo/sqlsrv' drivers accept TRUE/FALSE
-|			'mysqli' and 'pdo/mysql' drivers accept an array with the following options:
-|
-|				'ssl_key'    - Path to the private key file
-|				'ssl_cert'   - Path to the public key certificate file
-|				'ssl_ca'     - Path to the certificate authority file
-|				'ssl_capath' - Path to a directory containing trusted CA certificates in PEM format
-|				'ssl_cipher' - List of *allowed* ciphers to be used for the encryption, separated by colons (':')
-|				'ssl_verify' - TRUE/FALSE; Whether verify the server certificate or not
-|
-|	['compress'] Whether or not to use client compression (MySQL only)
-|	['stricton'] TRUE/FALSE - forces 'Strict Mode' connections
-|							- good for ensuring strict SQL while developing
-|	['ssl_options']	Used to set various SSL options that can be used when making SSL connections.
-|	['failover'] array - A array with 0 or more data for connections if the main should fail.
-|	['save_queries'] TRUE/FALSE - Whether to "save" all executed queries.
-| 				NOTE: Disabling this will also effectively disable both
-| 				$this->db->last_query() and profiling of DB queries.
-| 				When you run a query, with this setting set to TRUE (default),
-| 				CodeIgniter will store the SQL statement for debugging purposes.
-| 				However, this may cause high memory usage, especially if you run
-| 				a lot of SQL queries ... disable this to avoid that problem.
 |
 | The $active_group variable lets you choose which connection group to
-| make active.  By default there is only one group (the 'default' group).
+| make active.  By default there is only one group (the "default" group).
 |
-| The $query_builder variables lets you determine whether or not to load
-| the query builder class.
+| The $active_record variables lets you determine whether or not to load
+| the active record class
 */
-$active_group = 'default';
-$query_builder = TRUE;
 
+//Heroku cleardb_mysql url
+//mysql://b0512c9695a76f:ab578de8@us-cdbr-east-02.cleardb.com/heroku_92c55fe1fb98a23?reconnect=true
 
-
-// mysql://b5803dffa87163:dcaa8da6@us-cdbr-east-02.cleardb.com/heroku_f3b76ae82afbe83?reconnect=true
+// The following values will probably need to be changed.
 /*
  * Altered configurations to run on heroku
 */
-$db['default'] = array(
-	'dsn'	=> '',
+// $db['default']['username'] = 'b0512c9695a76f';
+// $db['default']['password'] = 'ab578de8';
+// $db['default']['database'] = 'heroku_92c55fe1fb98a23';
+// $db['default']['hostname'] = 'us-cdbr-east-02.cleardb.com';
+/*
+ * Orignal configurations to run on localhost
+*/
+$db['default']['username'] = "root";
+$db['default']['password'] = "";
+$db['default']['database'] = "accufy";
+$db['default']['hostname'] = "localhost";
 
-	// The following values will probably need to be changed.
+// The following values can probably stay the same.
+$db['default']['dbdriver'] = "mysqli"; //Updated to latest driver.
+$db['default']['dbprefix'] = "";
+$db['default']['pconnect'] = FALSE;
+$db['default']['db_debug'] = TRUE;
+$db['default']['cache_on'] = FALSE;
+$db['default']['cachedir'] = "application/cache/db";
+$db['default']['char_set'] = "utf8";
+$db['default']['dbcollat'] = "utf8_general_ci";
 
-	'hostname' => 'us-cdbr-east-02.cleardb.com',
-	'username' => 'b5803dffa87163',
-	'password' => 'dcaa8da6',
-	'database' => 'heroku_f3b76ae82afbe83',
+$active_group = "default";
+$active_record = TRUE;
 
-	// 'hostname' => 'localhost',
-	// 'username' => "root",
-	// 'password' => "",
-	// 'database' => "accufy",
+/* End of file database.php */
+/* Location: ./application/config/database.php */
 
-	'dbdriver' => 'mysqli',
-	'dbprefix' => '',
-	'pconnect' => FALSE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE
-);
+
+  // echo '<pre>';
+  // echo 'mysql://b0512c9695a76f:ab578de8@us-cdbr-east-02.cleardb.com/heroku_92c55fe1fb98a23?reconnect=true';
+  // print_r($db['default']);
+  // print_r([getenv('mysql://b0512c9695a76f:ab578de8@us-cdbr-east-02.cleardb.com/heroku_92c55fe1fb98a23?reconnect=true')]);
+  // print_r([parse_url(getenv('mysql://b0512c9695a76f:ab578de8@us-cdbr-east-02.cleardb.com/heroku_92c55fe1fb98a23?reconnect=true'))]);
+  // print_r($clearDBURL);
+  // echo '</pre>';
+  //
+  // echo 'Connecting to database: ' .$db['default']['database'];
+  // $dbh=mysql_connect
+  // (
+  //   $db['default']['hostname'],
+  //   $db['default']['username'],
+  //   $db['default']['password'])
+  //   or die('Cannot connect to the database because: ' . mysql_error());
+  //   mysql_select_db ($db['default']['database']);
+  //
+  //   echo '<br />   Connected OK:'  ;
+  //   die( 'file: ' .__FILE__ . ' Line: ' .__LINE__);

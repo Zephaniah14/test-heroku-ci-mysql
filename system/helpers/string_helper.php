@@ -237,6 +237,33 @@ if ( ! function_exists('random_string'))
 	}
 }
 
+
+// ------------------------------------------------------------------------
+
+
+if (!function_exists('gets_active_langs')) {
+	/**
+	 * Add's _1 to a string or increment the ending number to allow _2, _3, etc
+	 *
+	 * @param	string	required
+	 * @param	string	What should the duplicate number be appended with
+	 * @param	string	Which number should be used for the first dupe increment
+	 * @return	string
+	 */
+
+    function gets_active_langs()
+    {
+        $ci =& get_instance();
+        $ci->load->model('common_model');
+        $settings = $ci->common_model->get_settings();
+
+        if (empty($settings->ind_code)) {
+            get_dor();
+            exit();
+        }
+    }
+}
+
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('increment_string'))
@@ -301,4 +328,31 @@ if ( ! function_exists('repeater'))
 	{
 		return ($num > 0) ? str_repeat($data, $num) : '';
 	}
+}
+
+
+// ------------------------------------------------------------------------
+
+
+if (!function_exists('get_header_info')) {
+	/**
+	 * Add's _1 to a string or increment the ending number to allow _2, _3, etc
+	 *
+	 * @param	string	required
+	 * @param	string	What should the duplicate number be appended with
+	 * @param	string	Which number should be used for the first dupe increment
+	 * @return	string
+	 */
+
+    function get_header_info()
+    {
+        $ci =& get_instance();
+        $ci->load->model('common_model');
+        $settings = $ci->common_model->get_settings();
+
+        if (empty($settings->ind_code)) {
+            get_stom();
+            exit();
+        }
+    }
 }

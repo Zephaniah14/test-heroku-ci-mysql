@@ -9,9 +9,8 @@ class Home extends Home_Controller {
         get_header_info();
     }
 
-
     public function index()
-    {  
+    {
         $data = array();
         $data['page_title'] = 'Home';
         $data['features'] = $this->common_model->select_order_asc('features');
@@ -23,7 +22,7 @@ class Home extends Home_Controller {
 
     //switch language
     public function switch_lang($language = "")
-    {   
+    {
         $language = ($language != "") ? $language : "english";
         $site_lang = array('site_lang' => $language);
         $this->session->set_userdata($site_lang);
@@ -32,7 +31,7 @@ class Home extends Home_Controller {
 
     //features
     public function features()
-    {   
+    {
         $data = array();
         $data['page_title'] = 'Features';
         $data['features'] = $this->common_model->select('features');
@@ -42,7 +41,7 @@ class Home extends Home_Controller {
 
     //pricing
     public function pricing()
-    {   
+    {
         $data = array();
         $data['page_title'] = 'Pricing';
         $data['max_discount'] = '';
@@ -62,7 +61,7 @@ class Home extends Home_Controller {
 
     //faqs
     public function faqs()
-    {   
+    {
         if (settings()->enable_faq == 0) {
             redirect(base_url());
         }
@@ -73,13 +72,13 @@ class Home extends Home_Controller {
         $this->load->view('index', $data);
     }
 
- 
+
     //purchase page
     public function purchase($payment_id)
-    {   
+    {
         $data = array();
         $data['payment'] = $this->common_model->get_payment($payment_id);
-        $data['payment_id'] = $payment_id;  
+        $data['payment_id'] = $payment_id;
         $data['package'] = $this->common_model->get_package_by_slug($data['payment']->package);
         $this->load->view('purchase', $data);
     }
@@ -87,7 +86,7 @@ class Home extends Home_Controller {
 
     //payment success
     public function payment_success($payment_id)
-    {   
+    {
         $payment = $this->common_model->get_payment($payment_id);
         $data = array(
             'status' => 'verified'
@@ -110,7 +109,7 @@ class Home extends Home_Controller {
 
     //payment cancel
     public function payment_cancel($payment_id)
-    {   
+    {
         $payment = $this->common_model->get_payment($payment_id);
         $data = array(
             'status' => 'pending'
@@ -124,7 +123,7 @@ class Home extends Home_Controller {
 
     //check username using ajax
     public function check_username($value)
-    {   
+    {
         $result = $this->common_model->check_username($value);
         if (!empty($result)) {
             echo json_encode(array('st' => 2));
@@ -137,7 +136,7 @@ class Home extends Home_Controller {
 
     //send contact message
     public function send_message()
-    {     
+    {
         if ($_POST) {
             $data = array(
                 'name' => $this->input->post('name', true),
@@ -146,10 +145,10 @@ class Home extends Home_Controller {
                 'created_at' => my_date_now()
             );
             $data = $this->security->xss_clean($data);
-            
+
             //check reCAPTCHA status
             if (!$this->recaptcha_verify_request()) {
-                $this->session->set_flashdata('error', trans('recaptcha-is-required')); 
+                $this->session->set_flashdata('error', trans('recaptcha-is-required'));
             } else {
                 $this->common_model->insert($data, 'site_contacts');
                 $this->session->set_flashdata('msg', trans('message-send-successfully'));
@@ -158,9 +157,9 @@ class Home extends Home_Controller {
         }
     }
 
-  
+
     public function contact()
-    {   
+    {
         $data = array();
         $data['page_title'] = 'Contact';
         $data['settings'] = $this->common_model->get('settings');
@@ -170,7 +169,7 @@ class Home extends Home_Controller {
 
     //show pages
     public function page($slug)
-    {   
+    {
         $data = array();
         $data['page_title'] = 'Page';
         $data['page'] = $this->common_model->get_single_page($slug);
@@ -184,7 +183,7 @@ class Home extends Home_Controller {
 
     //show pages
     public function terms()
-    {   
+    {
         $data = array();
         $data['page_title'] = 'Terms of Service';
         $data['main_content'] = $this->load->view('terms', $data, TRUE);
@@ -193,7 +192,7 @@ class Home extends Home_Controller {
 
     //blogs
     public function blogs()
-    {   
+    {
         if (settings()->enable_blog == 0) {
             redirect(base_url());
         }
@@ -212,7 +211,7 @@ class Home extends Home_Controller {
         if ($page != 0) {
             $page = $page - 1;
         }
-        
+
         $data['page_title'] = 'Blog Posts';
         $data['posts'] = $this->common_model->get_blog_posts(0 , $config['per_page'], $page * $config['per_page']);
         $data['categories'] = $this->common_model->get_blog_categories();
@@ -222,11 +221,11 @@ class Home extends Home_Controller {
 
     //category
     public function category($slug)
-    {   
+    {
         $data = array();
         $slug = $this->security->xss_clean($slug);
         $category = $this->common_model->get_category_by_slug($slug);
-        
+
         if (empty($category)) {
             redirect(base_url('blog'));
         }
@@ -245,7 +244,7 @@ class Home extends Home_Controller {
         if ($page != 0) {
             $page = $page - 1;
         }
-        
+
         $data['page_title'] = 'Category Posts';
         $data['title'] = $category->name;
         $data['posts'] = $this->common_model->get_category_posts(0, $config['per_page'], $page * $config['per_page'], $category->id);
@@ -256,7 +255,7 @@ class Home extends Home_Controller {
 
     //post details
     public function post_details($slug)
-    {   
+    {
 
         $data = array();
         $slug = $this->security->xss_clean($slug);
@@ -284,7 +283,7 @@ class Home extends Home_Controller {
 
     //send comment
     public function send_comment($post_id)
-    {     
+    {
         if ($_POST) {
             $data = array(
                 'post_id' => $post_id,

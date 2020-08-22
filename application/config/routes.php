@@ -49,6 +49,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'welcome';
-$route['404_override'] = '';
+
+
+$route['default_controller'] = 'home/index';
+$route['404_override'] = 'home/error_404';
 $route['translate_uri_dashes'] = FALSE;
+$route['index'] = 'home/index';
+$route['error-404'] = 'home/error_404';
+
+
+//site routes
+$route['features'] = 'home/features';
+$route['faqs'] = 'home/faqs';
+$route['pricing'] = 'home/pricing';
+$route['contact'] = 'home/contact';
+$route['terms-of-service'] = 'home/terms';
+$route['blog'] = 'home/blogs';
+$route['category/(:any)'] = 'home/category/$1';
+$route['post/(:any)'] = 'home/post_details/$1';
+$route['page/(:any)'] = 'home/page/$1';
+
+
+//auth routes
+$route['login'] = 'auth/login';
+$route['register'] = 'auth/register';
+$route['verify'] = 'auth/verify_email';
+$route['register_user'] = 'auth/register_user';
+$route['create-business'] = 'auth/register_business';
+$route['package/(:any)/(:any)'] = 'auth/add_package/$1/$2';
+$route['purchase-plan'] = 'auth/purchase';
+$route['payment-success/(:any)'] = 'auth/payment_success/$1';
+$route['payment-cancel/(:any)'] = 'auth/payment_cancel/$1';
+$route['setup'] = 'auth/setup';
+$route['change_password'] = 'admin/dashboard/change_password';

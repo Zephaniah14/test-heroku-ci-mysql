@@ -1,16 +1,9 @@
 <?php
 class Common_model extends CI_Model {
 
-
-	function fetch_business_category_records()
-	{
-		$query=$this->db->query("SELECT * FROM `business_category`;");
-		return $query->result();
-	}
-
     // insert function
-		public function insert($data,$table){
-        $this->db->insert($table,$data);
+	public function insert($data,$table){
+        $this->db->insert($table,$data);        
         return $this->db->insert_id();
     }
 
@@ -19,14 +12,14 @@ class Common_model extends CI_Model {
         $this->db->where('id',$id);
         $this->db->update($table,$action);
         return;
-    }
+    } 
 
     // edit function
     function edit_option_md5($action, $id, $table){
         $this->db->where('md5(id)', $id);
         $this->db->update($table,$action);
         return;
-    }
+    } 
 
     // update function
     function update($action,$id,$table){
@@ -40,7 +33,7 @@ class Common_model extends CI_Model {
         return;
     }
 
-
+  
 
     // get function
     function get($table)
@@ -49,7 +42,7 @@ class Common_model extends CI_Model {
         $this->db->from($table);
         $this->db->order_by('id','DESC');
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
     }
 
@@ -62,7 +55,7 @@ class Common_model extends CI_Model {
         $this->db->where('user_id', $this->session->userdata('id'));
         $this->db->order_by('user_id','DESC');
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
     }
 
@@ -73,7 +66,7 @@ class Common_model extends CI_Model {
         $this->db->from($table);
         $this->db->order_by('id','DESC');
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
     }
 
@@ -84,7 +77,7 @@ class Common_model extends CI_Model {
         $this->db->from($table);
         $this->db->order_by('id','ASC');
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
     }
 
@@ -95,7 +88,7 @@ class Common_model extends CI_Model {
         $this->db->from($table);
         $this->db->order_by('orders','ASC');
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
     }
 
@@ -106,9 +99,9 @@ class Common_model extends CI_Model {
         $this->db->from($table);
         $this->db->where('id', $id);
         $query = $this->db->get();
-        $query = $query->result_array();
+        $query = $query->result_array();  
         return $query;
-    }
+    } 
 
     // select by id
     function get_by_id($id,$table)
@@ -117,9 +110,9 @@ class Common_model extends CI_Model {
         $this->db->from($table);
         $this->db->where('id', $id);
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
-    }
+    } 
 
 
    function check_follower($id)
@@ -129,9 +122,9 @@ class Common_model extends CI_Model {
         $this->db->where('action_id', $this->session->userdata('id'));
         $this->db->where('follower_id', $id);
         $this->db->limit(1);
-        $this->db->query('SET SQL_BIG_SELECTS=1');
+        $this->db->query('SET SQL_BIG_SELECTS=1'); 
         $query = $this->db->get();
-        if($query->num_rows() == 1) {
+        if($query->num_rows() == 1) {                 
             return $query->result();
         }else{
             return 0;
@@ -147,10 +140,10 @@ class Common_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('users');
-        $this->db->where('email', $email);
+        $this->db->where('email', $email); 
         $this->db->limit(1);
         $query = $this->db->get();
-        if($query->num_rows() == 1) {
+        if($query->num_rows() == 1) {                 
             return $query->result();
         }else{
             return false;
@@ -161,10 +154,10 @@ class Common_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('users');
-        $this->db->where('user_name', $name);
+        $this->db->where('user_name', $name); 
         $this->db->limit(1);
         $query = $this->db->get();
-        if($query->num_rows() == 1) {
+        if($query->num_rows() == 1) {                 
             return $query->result();
         }else{
             return 0;
@@ -179,7 +172,7 @@ class Common_model extends CI_Model {
         $this->db->from('pages');
         $this->db->where('slug', $slug);
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
     }
 
@@ -207,7 +200,7 @@ class Common_model extends CI_Model {
         $this->db->from('category');
         $this->db->where('parent_id', $id);
         $query = $this->db->get();
-        $query = $query->result_array();
+        $query = $query->result_array();  
         return $query;
     }
 
@@ -218,7 +211,7 @@ class Common_model extends CI_Model {
         $this->db->from('settings s');
         $this->db->join('language as l', 'l.id = s.lang', 'LEFT');
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
     }
 
@@ -228,9 +221,9 @@ class Common_model extends CI_Model {
         $this->db->from($table);
         $this->db->where('slug', $slug);
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
-    }
+    } 
 
     // get business
     function get_business($uid)
@@ -245,7 +238,7 @@ class Common_model extends CI_Model {
         $this->db->where('b.user_id', $this->session->userdata('id'));
         $this->db->join('country t', 't.id = b.country', 'LEFT');
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
     }
 
@@ -257,7 +250,7 @@ class Common_model extends CI_Model {
         $this->db->where('b.user_id', $this->session->userdata('id'));
         $this->db->join('country t', 't.id = b.country', 'LEFT');
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
     }
 
@@ -268,9 +261,9 @@ class Common_model extends CI_Model {
         $this->db->from($table);
         $this->db->where(md5('id'), $id);
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
-    }
+    } 
 
     //get user by id
     public function get_user_by_slug($slug)
@@ -280,7 +273,7 @@ class Common_model extends CI_Model {
         $this->db->join('google_fonts f', 'u.site_font = f.id', 'LEFT');
         $this->db->where('u.slug', $slug);
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
     }
 
@@ -293,7 +286,7 @@ class Common_model extends CI_Model {
         $this->db->where('user_id', $user_id);
         $this->db->order_by('id','ASC');
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
     }
 
@@ -305,7 +298,7 @@ class Common_model extends CI_Model {
         $this->db->from('country');
         $this->db->where('currency_code', $currency);
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
     }
 
@@ -315,7 +308,7 @@ class Common_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('package');
         $query = $this->db->get();
-        $query = $query->result_array();
+        $query = $query->result_array();  
 
         foreach ($query as $key => $value) {
             $this->db->select('*');
@@ -336,7 +329,7 @@ class Common_model extends CI_Model {
         $this->db->select_max('dis_year');
         $this->db->from('package');
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
     }
 
@@ -374,7 +367,7 @@ class Common_model extends CI_Model {
             return $query;
         }
     }
-
+    
 
     //increase post hit
     public function increase_user_hit($id)
@@ -435,7 +428,7 @@ class Common_model extends CI_Model {
         $this->db->from('follower');
         $this->db->where('follower_id', $id);
         $query = $this->db->get();
-        $query = $query->num_rows();
+        $query = $query->num_rows();  
         return $query;
     }
 
@@ -446,7 +439,7 @@ class Common_model extends CI_Model {
         $this->db->from('follower');
         $this->db->where('action_id', $id);
         $query = $this->db->get();
-        $query = $query->num_rows();
+        $query = $query->num_rows();  
         return $query;
     }
 
@@ -457,7 +450,7 @@ class Common_model extends CI_Model {
         $this->db->from('portfolio');
         $this->db->where('user_id', $id);
         $query = $this->db->get();
-        $query = $query->num_rows();
+        $query = $query->num_rows();  
         return $query;
     }
 
@@ -469,7 +462,7 @@ class Common_model extends CI_Model {
         $this->db->select();
         $this->db->from('features');
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
     }
 
@@ -481,7 +474,7 @@ class Common_model extends CI_Model {
         $this->db->from('payment');
         $this->db->where('puid', $payment_id);
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
     }
 
@@ -493,7 +486,7 @@ class Common_model extends CI_Model {
         $this->db->where('user_id', $this->session->userdata('id'));
         $this->db->order_by('id', 'DESC');
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
     }
 
@@ -505,7 +498,7 @@ class Common_model extends CI_Model {
         $this->db->from('package_features');
         $this->db->where('slug', $slug);
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
     }
 
@@ -518,7 +511,7 @@ class Common_model extends CI_Model {
         $this->db->where('p.user_id', $this->session->userdata('id'));
         $this->db->order_by('p.id', 'DESC');
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
     }
 
@@ -532,7 +525,7 @@ class Common_model extends CI_Model {
         $this->db->where('p.user_id', $user_id);
         $this->db->order_by('p.id', 'DESC');
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
     }
 
@@ -544,10 +537,10 @@ class Common_model extends CI_Model {
         $this->db->from('package');
         $this->db->where('id', $id);
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
     }
-
+    
     // get_package
     function get_package_by_slug($slug)
     {
@@ -555,7 +548,7 @@ class Common_model extends CI_Model {
         $this->db->from('package');
         $this->db->where('slug', $slug);
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
     }
 
@@ -572,7 +565,7 @@ class Common_model extends CI_Model {
             $this->db->join('users u', 'u.id = action_id', 'LEFT');
         }
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
     }
 
@@ -586,10 +579,10 @@ class Common_model extends CI_Model {
         $this->db->where('user_id', $user_id);
         $this->db->order_by('orders');
         $query = $this->db->get();
-        $query = $query->result_array();
+        $query = $query->result_array();  
 
         foreach ($query as $key => $value) {
-
+     
             $this->db->from('skills');
             $this->db->where('parent_id',$value['id']);
             $this->db->where('user_id', $user_id);
@@ -610,10 +603,10 @@ class Common_model extends CI_Model {
         $this->db->where('user_id', $user_id);
         $this->db->order_by('orders');
         $query = $this->db->get();
-        $query = $query->result_array();
+        $query = $query->result_array();  
 
         foreach ($query as $key => $value) {
-
+     
             $this->db->from('experience');
             $this->db->where('parent_id',$value['id']);
             $this->db->where('user_id', $user_id);
@@ -632,9 +625,9 @@ class Common_model extends CI_Model {
         $this->db->where('user_id', $user_id);
         $this->db->order_by('id', 'DESC');
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
-    }
+    } 
 
     // get categories
     function get_categories(){
@@ -643,11 +636,11 @@ class Common_model extends CI_Model {
         $this->db->where('parent_id', 0);
         $this->db->order_by('cat_order', 'ASC');
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
-    }
+    } 
 
-
+   
     // get subcategories
     function get_subcategories(){
         $this->db->select();
@@ -655,9 +648,9 @@ class Common_model extends CI_Model {
         $this->db->where('parent_id !=', 0);
         $this->db->where('sub', 0);
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
-    }
+    } 
 
 
 
@@ -667,9 +660,9 @@ class Common_model extends CI_Model {
         $this->db->from('category');
         $this->db->where('sub', 1);
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
-    }
+    } 
 
 
     // get categories
@@ -679,11 +672,11 @@ class Common_model extends CI_Model {
         $this->db->where('user_id', $this->session->userdata('id'));
         $this->db->where('parent_id', 0);
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
-    }
+    } 
 
-
+   
     // get subcategories
     function get_subskills(){
         $this->db->select();
@@ -691,9 +684,9 @@ class Common_model extends CI_Model {
         $this->db->where('user_id', $this->session->userdata('id'));
         $this->db->where('parent_id !=', 0);
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
-    }
+    } 
 
     // get categories
     function get_experience(){
@@ -702,11 +695,11 @@ class Common_model extends CI_Model {
         $this->db->where('user_id', $this->session->userdata('id'));
         $this->db->where('parent_id', 0);
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
-    }
+    } 
 
-
+   
     // get subcategories
     function get_subexperience(){
         $this->db->select();
@@ -714,9 +707,9 @@ class Common_model extends CI_Model {
         $this->db->where('user_id', $this->session->userdata('id'));
         $this->db->where('parent_id !=', 0);
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
-    }
+    } 
 
     // get categories
     function get_portfolio_categories(){
@@ -724,9 +717,9 @@ class Common_model extends CI_Model {
         $this->db->from('portfolio_category');
         $this->db->where('user_id', $this->session->userdata('id'));
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
-    }
+    } 
 
     // get testimonials
     function get_portfolio_category($user_id){
@@ -735,9 +728,9 @@ class Common_model extends CI_Model {
         $this->db->where('user_id', $user_id);
         $this->db->order_by('id', 'DESC');
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
-    }
+    } 
 
     // get expire payments
     function get_expire_payments(){
@@ -745,9 +738,9 @@ class Common_model extends CI_Model {
         $this->db->from('payment');
         $this->db->where('expire_on', date('Y-m-d'));
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
-    }
+    } 
 
     // get trial users
     function get_trial_users(){
@@ -755,9 +748,9 @@ class Common_model extends CI_Model {
         $this->db->from('users');
         $this->db->where('trial_expire', date('Y-m-d'));
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
-    }
+    } 
 
     // get home blog posts
     function get_home_blog_posts($limit){
@@ -769,7 +762,7 @@ class Common_model extends CI_Model {
         $query = $this->db->get();
         $query = $query->result();
         return $query;
-    }
+    } 
 
 
     // get blog posts
@@ -787,7 +780,7 @@ class Common_model extends CI_Model {
             $query = $query->result();
             return $query;
         }
-    }
+    } 
 
     // get_categories
     function get_blog_categories(){
@@ -796,9 +789,9 @@ class Common_model extends CI_Model {
         $this->db->join('blog_category c', 'c.id = b.category_id', 'LEFT');
         $this->db->group_by('b.category_id');
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
-    }
+    } 
 
 
     //get posts categories
@@ -808,7 +801,7 @@ class Common_model extends CI_Model {
         $this->db->from('blog_category');
         $this->db->where('slug', $slug);
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
     }
 
@@ -819,7 +812,7 @@ class Common_model extends CI_Model {
         $this->db->select();
         $this->db->from('blog_category');
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
     }
 
@@ -832,11 +825,11 @@ class Common_model extends CI_Model {
         $this->db->join('blog_category c', 'p.category_id = c.id', 'LEFT');
         $this->db->where('p.slug', $slug);
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
     }
 
-
+  
 
 
     //get latest posts
@@ -852,7 +845,7 @@ class Common_model extends CI_Model {
         $this->db->order_by('p.id', 'DESC');
         $this->db->limit(3);
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
     }
 
@@ -867,16 +860,16 @@ class Common_model extends CI_Model {
 
     //get comments by img
     public function get_comments_by_post($post_id)
-    {
+    {   
         $this->db->select('c.*');
         $this->db->from('comments c');
         $this->db->where('c.post_id', $post_id);
         $this->db->order_by('c.id', 'DESC');
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
     }
-
+   
     // delete tags
     function delete_tags($post_id, $table){
         $this->db->delete($table, array('post_id' => $post_id));
@@ -894,9 +887,9 @@ class Common_model extends CI_Model {
         $this->db->join('blog_category as c', 'c.id = p.category_id', 'LEFT');
         $this->db->where('p.status', 1);
         $this->db->where('p.category_id', $id);
-
+        
         $this->db->order_by('p.id', 'DESC');
-
+        
         if ($total == 1) {
             $query = $this->db->get();
             $query = $query->num_rows();
@@ -918,7 +911,7 @@ class Common_model extends CI_Model {
         $this->db->where('p.status', 1);
         $this->db->where('p.category_id', $id);
         $query = $this->db->get();
-        if($query->num_rows() == 1) {
+        if($query->num_rows() == 1) {                 
             return $query->row();
         }else{
             return 0;
@@ -938,7 +931,7 @@ class Common_model extends CI_Model {
         $this->db->order_by('rand()');
         $this->db->limit(8);
         $query = $this->db->get();
-        $query = $query->result();
+        $query = $query->result();  
         return $query;
     }
 
@@ -948,9 +941,9 @@ class Common_model extends CI_Model {
     //     $this->db->select();
     //     $this->db->from('blog_category');
     //     $query = $this->db->get();
-    //     $query = $query->result();
+    //     $query = $query->result();  
     //     return $query;
-    // }
+    // } 
 
     //get latest users
     function get_latest_users(){
@@ -995,13 +988,13 @@ class Common_model extends CI_Model {
     function get_total_info(){
         $this->db->select('p.id');
         $this->db->select('(SELECT count(posts.id)
-                            FROM posts
+                            FROM posts 
                             WHERE (status = 1)
                             )
                             AS post',TRUE);
-
+        
         $this->db->select('(SELECT count(users.id)
-                            FROM users
+                            FROM users 
                             WHERE (status = 1)
                             )
                             AS user',TRUE);
@@ -1020,14 +1013,14 @@ class Common_model extends CI_Model {
         $this->db->from('users u');
         $this->db->where('u.id', $this->session->userdata('id'));
         $query = $this->db->get();
-        $query = $query->row();
+        $query = $query->row();  
         return $query;
     }
 
 
     // image upload function with resize option
     function upload_image($max_size){
-
+            
             // set upload path
             $config['upload_path']  = "./uploads/";
             $config['allowed_types']= 'gif|jpg|png|jpeg';
@@ -1039,7 +1032,7 @@ class Common_model extends CI_Model {
 
             if ($this->upload->do_upload("photo")) {
 
-
+                
                 $data = $this->upload->data();
 
                 // set upload path
@@ -1115,22 +1108,22 @@ class Common_model extends CI_Model {
             else {
                 echo "Failed! to upload image" ;
             }
-
+            
     }
 
 
     //multiple image upload with resize option
-    public function do_upload($photo) {
+    public function do_upload($photo) {                   
         $config['upload_path']  = "./uploads/";
         $config['allowed_types']= 'gif|jpg|png|jpeg';
         $config['max_size']     = '20000';
         $config['max_width']    = '20000';
         $config['max_height']   = '20000';
-
-        $this->load->library('upload', $config);
-
+ 
+        $this->load->library('upload', $config);                
+        
             if ($this->upload->do_upload($photo)) {
-                $data       = $this->upload->data();
+                $data       = $this->upload->data(); 
                 /* PATH */
                 $source             = "./uploads/".$data['file_name'] ;
                 $destination_thumb  = "./uploads/thumbnail/" ;
@@ -1176,7 +1169,7 @@ class Common_model extends CI_Model {
                 // Do Resizing
                 $this->image_lib->initialize($img);
                 $this->image_lib->resize();
-                $this->image_lib->clear() ;
+                $this->image_lib->clear() ;                 
 
                 //// Making MEDIUM ///////
                 $img['width']  = $limit_use > $limit_medium ?  $data['image_width'] * $percent_medium : $data['image_width'] ;
@@ -1192,7 +1185,7 @@ class Common_model extends CI_Model {
                 // Do Resizing
                 $this->image_lib->initialize($img);
                 $this->image_lib->resize();
-                $this->image_lib->clear() ;
+                $this->image_lib->clear() ;               
 
                 ////// Making BIG /////////////
                 $img['width']   = $limit_use > $limit_big ?  $data['image_width'] * $percent_big : $data['image_width'] ;
@@ -1216,14 +1209,14 @@ class Common_model extends CI_Model {
                     'big' => 'uploads/big/'.$album_picture
                 );
 
-                unlink($source) ;
-                return $data_image;
-
+                unlink($source) ;   
+                return $data_image;   
+    
             }
             else {
                 return FALSE ;
             }
-
+       
     }
 
 }
