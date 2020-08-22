@@ -18,8 +18,21 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+
+	 	public function __construct()
+		{
+			/*call CodeIgniter's default Constructor*/
+			parent::__construct();
+
+			/*load database libray manually*/
+			$this->load->database();
+
+			/*load Model*/
+			$this->load->model('Common_model');
+		}
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$result['data']=$this->Common_model->fetch_business_category_records();
+		$this->load->view('welcome_message',$result);
 	}
 }
